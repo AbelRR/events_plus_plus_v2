@@ -18,10 +18,11 @@ model User {
   createdAt     DateTime @default(now())
   email         String   @unique
   name          String
+  phoneNumber   String
   address       String?
   role          Role     @default(CLIENT)
-  admin_orders  Order[] @relation(name: "client_relation")
-  client_orders Order[] @relation(name: "admin_relation")
+  adminOrders  Order[] @relation(name: "client_relation")
+  clientOrders Order[] @relation(name: "admin_relation")
 }
 
 model Order {
@@ -60,21 +61,21 @@ model BounceHouse {
   id        Int      @id @default(autoincrement())
   itemType  Item
   name      String
-  inventory_items InventoryItem[]
+  inventoryItems InventoryItem[]
 }
 
 model Canopy {
   id       Int      @id @default(autoincrement())
   itemType  Item
   name      String
-  inventory_items InventoryItem[]
+  inventoryItems InventoryItem[]
 }
 
 model Heater {
   id       Int      @id @default(autoincrement())
   itemType  Item
   name      String
-  inventory_items InventoryItem[]
+  inventoryItems InventoryItem[]
 }
 
 enum Role {
