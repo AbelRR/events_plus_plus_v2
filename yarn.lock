@@ -14415,6 +14415,11 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
+react-phone-number@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/react-phone-number/-/react-phone-number-1.3.1.tgz#b302715c9c28208a4c22c33ae10b2dcee74d65a0"
+  integrity sha1-swJxXJwoIIpMIsM64QstzudNZaA=
+
 react-popper-tooltip@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/react-popper-tooltip/-/react-popper-tooltip-3.1.1.tgz#329569eb7b287008f04fcbddb6370452ad3f9eac"
