@@ -1,6 +1,6 @@
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url = env("TEST_DATABASE_URL")
 }
 
 generator client {
@@ -8,11 +8,85 @@ generator client {
   binaryTargets = "native"
 }
 
-// Define your own datamodels here and run `yarn redwood prisma migrate dev`
-// to create migrations for them and apply to your dev DB.
-// TODO: Please remove the following example:
-model UserExample {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+model BusinessInventory {
+  id            Int      @id  @default(autoincrement())
+  items         InventoryItem[]
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  createdAt     DateTime @default(now())
+  email         String   @unique
+  name          String
+  address       String?
+  role          Role     @default(CLIENT)
+  admin_orders  Order[] @relation(name: "client_relation")
+  client_orders Order[] @relation(name: "admin_relation")
+}
+
+model Order {
+  id                  Int         @id @default(autoincrement())
+  client              User        @relation(name: "client_relation", fields: [clientId], references: [id])
+  clientId            Int
+  items               InventoryItem[]
+  deliveryDateTime    DateTime
+  returnDateTime      DateTime
+  location            String
+  rentPrice           Int
+  depositAmount       Int
+  notes               String
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+  createdBy           User        @relation(name: "admin_relation", fields: [createdById], references: [id])
+  createdById         Int
+}
+
+model InventoryItem {
+  id            Int      @id @default(autoincrement())
+  itemType      Item
+  inventories   BusinessInventory[]
+  orders        Order[]
+  chairs        Int?
+  tables        Int?
+  bounceHouse   BounceHouse? @relation(fields: [bounceHouseId], references: [id])
+  bounceHouseId Int?
+  canopy        Canopy? @relation(fields: [canopyId], references: [id])
+  canopyId      Int?
+  heater        Heater? @relation(fields: [heaterId], references: [id])
+  heaterId      Int?
+}
+
+model BounceHouse {
+  id        Int      @id @default(autoincrement())
+  itemType  Item
+  name      String
+  inventory_items InventoryItem[]
+}
+
+model Canopy {
+  id       Int      @id @default(autoincrement())
+  itemType  Item
+  name      String
+  inventory_items InventoryItem[]
+}
+
+model Heater {
+  id       Int      @id @default(autoincrement())
+  itemType  Item
+  name      String
+  inventory_items InventoryItem[]
+}
+
+enum Role {
+  CLIENT
+  DRIVER
+  ADMIN
+}
+
+enum Item {
+  CHAIR
+  TABLE
+  BOUNCE_HOUSE
+  CANOPY
+  HEATER
 }
