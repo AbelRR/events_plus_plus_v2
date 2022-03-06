@@ -18,11 +18,11 @@ model User {
   createdAt     DateTime @default(now())
   email         String   @unique
   name          String
-  phoneNumber   String
+  phoneNumber   String   @unique
   address       String?
   role          Role     @default(CLIENT)
-  adminOrders  Order[] @relation(name: "client_relation")
-  clientOrders Order[] @relation(name: "admin_relation")
+  adminOrders   Order[]  @relation(name: "client_relation")
+  clientOrders  Order[]  @relation(name: "admin_relation")
 }
 
 model Order {
